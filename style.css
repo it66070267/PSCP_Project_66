@@ -1,0 +1,94 @@
+body {
+    background-color: #FFF;
+    width: 393px;
+    height: 852px;
+    box-sizing: border-box
+
+}
+
+.mainlogo {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+
+}
+
+.logo {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+
+}
+
+hr.line {
+    border-top: 1px solid black;
+
+    width: 350px;
+    height: 1px;
+    background: #000;
+
+}
+
+.title {
+    width: 248px;
+    height: 100px;
+    left: 75px;
+
+    color: #000;
+    position: absolute;
+    text-align: center;
+    font-family: 'Noto Sans Thai Looped', sans-serif;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+
+}
+
+.border1 {
+    box-sizing: border-box;
+
+    position: absolute;
+    width: 310px;
+    height: 45px;
+    left: 45px;
+    top: 150px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: #EFB37A;
+    font-family: 'Athiti';
+
+    display: flex;
+    padding-right: 0px;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.border2 {
+    box-sizing: border-box;
+
+    position: absolute;
+    width: 310px;
+    height: 45px;
+    left: 45px;
+    top: 250px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: #EFB37A;
+
+}
+
+.border3 {
+    box-sizing: border-box;
+
+    position: absolute;
+    width: 310px;
+    height: 45px;
+    left: 45px;
+    top: 350px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: #EFB37A;
+
+}
