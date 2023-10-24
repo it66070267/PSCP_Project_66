@@ -1,0 +1,45 @@
+{% extends 'home.html' %}
+
+{% block title %} sign up {% endblock %}
+
+{% block header %} Sign up {% endblock %}
+
+{% block body %}
+<a href="{{ url_for('login') }}" class="btn btn-primary">Log in</a>
+<div class="card-body">
+    <form action="{{ url_for('signup') }}" method="POST">
+        <div class="form-group">
+            <label for="username">Userame:</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">#</div>
+                </div>
+                <input type="text" id="username" class="form-control" placeholder="Input Userame" name="username">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">@</div>
+                </div>
+                <input type="email" id="email" class="form-control" placeholder="Input Email" name="email">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="telp">Password:</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">#</div>
+                </div>
+                <input type="password" id="password" class="form-control" placeholder="Input Password" name="password">
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-success btn-sm" name="submit">Submit</button>
+            <button type="reset" class="btn btn-danger btn-sm">Cancel</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
