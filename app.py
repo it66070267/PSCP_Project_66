@@ -43,6 +43,10 @@ class user(db.Model, UserMixin):
 
 #<----------------- user ------------------>
 #< login >
+@app.route('/changepass', methods=['GET', 'POST'])
+def change_pass():
+    return render_template('changepass.html')
+
 @login_manager.user_loader
 def load_user(user_id):
     return user.query.get(int(user_id))
