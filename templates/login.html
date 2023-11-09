@@ -6,17 +6,17 @@
 
 {% block body %}
 <div class="card text-center">
-<div class="card-header">Login</div>
+<div class="card-header"><strong>FoodBooked</strong>-Login</div>
 </div>
-    <div class="card-body">
-        <form action="{{ url_for('signup') }}" method="POST">
+    <div class="card-body mt-2 pd-2">
+        <form action="{{ url_for('login') }}" method="POST">
             <div class="form-group">
                 <label for="username">Username:</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <div class="input-group-text">#</div>
                     </div>
-                    <input type="text" id="username" class="form-control" placeholder="Input Userame" name="username" required>
+                    <input type="text" id="username" class="form-control" placeholder="Input Username" name="username" required>
                 </div>
             </div>
         
@@ -35,8 +35,8 @@
             </div>
             
         </form>
-    </br>
-        <p>Don't have account yet?</p><a href="{{ url_for('signup') }}" class="btn btn-primary">Sign up</a>
+    <div> <p class="d-inline pr-2">Don't have account yet?</p><a href="{{ url_for('signup') }}" class="btn btn-primary">Sign up</a></div>
+        
     </div>
 
 {% endblock %}
