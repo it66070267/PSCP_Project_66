@@ -5,8 +5,9 @@
 {% block header %} Log in {% endblock %}
 
 {% block body %}
-
-    <a href="{{ url_for('signup') }}" class="btn btn-primary">Sign up</a>
+<div class="card text-center">
+<div class="card-header">Login</div>
+</div>
     <div class="card-body">
         <form action="{{ url_for('signup') }}" method="POST">
             <div class="form-group">
@@ -32,7 +33,10 @@
                 <button type="submit" class="btn btn-success btn-sm" name="submit">Submit</button>
                 <button type="reset" class="btn btn-danger btn-sm">Cancel</button>
             </div>
+            
         </form>
+    </br>
+        <p>Don't have account yet?</p><a href="{{ url_for('signup') }}" class="btn btn-primary">Sign up</a>
     </div>
 
 {% endblock %}
