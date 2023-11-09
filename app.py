@@ -51,72 +51,76 @@ def signup():
         email = request.form['email']
         password = request.form['password']
 
-        password_hash = generate_password_hash(password)
-        add_data = user(username=username, email=email, password=password_hash)
-        #add_data = user(username, email, password)
-        
+        if not username or not email or not password:
+            flash('Please fill in all the fields.', 'danger')
+            return render_template('signup.html')
+
+        add_data = user(username=username, email=email, password=password)
         db.session.add(add_data)
         db.session.commit()
 
-        flash("Registration successful!")
-
+    # flash('Signup successful', 'success')
     return render_template('signup.html')
 
 #< login >
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def login_user():
-    passwordhash = generate_password_hash('test2')
-    print(passwordhash)
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+
+        user_data = user.query.filter_by(username=username).first()
+
+        if user_data and user_data.password == password:
+            #flash('Login successful', 'success')
+            return redirect(url_for('page'))
+        else:
+            flash('Login failed. Check your credentials and try again.', 'danger')
+        return render_template('login.html')
+ 
     return render_template('login.html')
 
-# @app.route('/submit', methods=['GET', 'POST'])
-# def login_user_submit():
-#     _username = request.form['username']
-#     _password = request.form['password']
-#     if _username and _password:
-#         row = user.query.filter_by(username=_username).first()
-#         if row:
-#             print(f"User found: {row.username}, {row.password}")
-#             if check_password_hash(row.password, _password):
-#                 session['username'] = row.username
-#                 return redirect(url_for('page'))
-#             else:
-#                 flash('Invalid Password!')
-#                 return redirect(url_for('login_user'))
-#         else:
-#             flash('Invalid username or password!')
-#             return redirect(url_for('login_user'))
-#     else:
-#         flash('Invalid usernamd or password')
-#         return redirect(url_for('login_user'))
 #< home >
 @app.route('/page')
 def page():
     return render_template('page.html')
 
-#     if 'username' in session:
-#         username_session = session['username']
-#         user_rs = user.query.filter_by(username=username_session).first()
-#         return render_template('page.html', user_rs=user_rs)
-#     else:
-#         return redirect(url_for('login_user'))
-
 #< logout >
-# @app.route('/logout')
-# def logout_user():
-#     if 'username' in session:
-#         session.pop('username', None)
-#     return redirect('/home')
+@app.route('/logout')
+def logout_user():
+    return redirect(url_for('login_user'))
 
 
 #<----------------- employee ------------------>
+@app.route('/admin', methods=['GET', 'POST'])
+def login_admin():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+
+        user_data = Employes.query.filter_by(username=username).first()
+
+        if user_data and user_data.password == password:
+            #flash('Login successful', 'success')
+            return redirect(url_for('index'))
+        else:
+            flash('Login failed. Check your credentials and try again.', 'danger')
+        return render_template('login_admin.html')
+ 
+    return render_template('login_admin.html')
+
+#< log out >
+@app.route('/logout_admin')
+def logout_admin():
+    return redirect(url_for('login_admin'))
+
 #< employee list >
 @app.route('/all_data')
 def index():
     data_employe = Employes.query.all()
     return render_template('index.html', data=data_employe)
 
-#< register employee >
+#< add employee >
 @app.route('/input_employee', methods=['GET', 'POST'])
 def input_data():
     if request.method == 'POST':
@@ -125,6 +129,9 @@ def input_data():
         password = request.form['password']
         address = request.form['address']
 
+        if not username or not email or not password or not address:
+            flash('Please fill in all the fields.', 'danger')
+            return render_template('input.html')
 
         add_data = Employes(username, email, password, address)
         
