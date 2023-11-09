@@ -1,6 +1,6 @@
-from flask import Flask, render_template, redirect, url_for, request, flash
+from flask import Flask, render_template, url_for, request, session, flash, redirect, make_response
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 app.secret_key = "djfljdfljfnkjsfhjfshjkfjfjfhjdhfdjhdfu"
@@ -16,8 +16,6 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 # app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
-login_manager = LoginManager()
-login_manager.init_app(app)
 class Employes(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(100), nullable=False)
@@ -30,7 +28,7 @@ class Employes(db.Model):
         self.email = email
         self.password = password
         self.address = address
-class user(db.Model, UserMixin):
+class user(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(255), nullable=False)
@@ -40,40 +38,11 @@ class user(db.Model, UserMixin):
         self.username = username
         self.email = email
         self.password = password
+    
+    def __repr__(self):
+        return f'<user: {self.username}>'
 
 #<----------------- user ------------------>
-#< login >
-@login_manager.user_loader
-def load_user(user_id):
-    return user.query.get(int(user_id))
-
-@app.route('/', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        user = user.query.filter_by(username=username).first()
-        if user and user.password == password:
-            login_user(user)
-            flash('Login successful', 'success')
-            return redirect(url_for('page'))
-        else:
-            flash('Login failed. Check your credentials and try again.', 'danger')
-    return render_template('login.html')
-
-#< home >
-@app.route('/page')
-@login_required
-def page():
-    return 'Welcome to your dashboard, {}'.format(current_user.username)
-
-#< logout >
-@app.route('/logout')
-@login_required
-def logout():
-    logout_user()
-    return redirect(url_for('login'))
-
 #< sign up >
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -82,15 +51,63 @@ def signup():
         email = request.form['email']
         password = request.form['password']
 
-
-        add_data = user(username, email, password)
+        password_hash = generate_password_hash(password)
+        add_data = user(username=username, email=email, password=password_hash)
+        #add_data = user(username, email, password)
         
         db.session.add(add_data)
         db.session.commit()
 
-        flash("Input Data Success")
+        flash("Registration successful!")
 
     return render_template('signup.html')
+
+#< login >
+@app.route('/')
+def login_user():
+    passwordhash = generate_password_hash('test2')
+    print(passwordhash)
+    return render_template('login.html')
+
+# @app.route('/submit', methods=['GET', 'POST'])
+# def login_user_submit():
+#     _username = request.form['username']
+#     _password = request.form['password']
+#     if _username and _password:
+#         row = user.query.filter_by(username=_username).first()
+#         if row:
+#             print(f"User found: {row.username}, {row.password}")
+#             if check_password_hash(row.password, _password):
+#                 session['username'] = row.username
+#                 return redirect(url_for('page'))
+#             else:
+#                 flash('Invalid Password!')
+#                 return redirect(url_for('login_user'))
+#         else:
+#             flash('Invalid username or password!')
+#             return redirect(url_for('login_user'))
+#     else:
+#         flash('Invalid usernamd or password')
+#         return redirect(url_for('login_user'))
+#< home >
+@app.route('/page')
+def page():
+    return render_template('page.html')
+
+#     if 'username' in session:
+#         username_session = session['username']
+#         user_rs = user.query.filter_by(username=username_session).first()
+#         return render_template('page.html', user_rs=user_rs)
+#     else:
+#         return redirect(url_for('login_user'))
+
+#< logout >
+# @app.route('/logout')
+# def logout_user():
+#     if 'username' in session:
+#         session.pop('username', None)
+#     return redirect('/home')
+
 
 #<----------------- employee ------------------>
 #< employee list >
@@ -99,7 +116,7 @@ def index():
     data_employe = Employes.query.all()
     return render_template('index.html', data=data_employe)
 
-#< login employee >
+#< register employee >
 @app.route('/input_employee', methods=['GET', 'POST'])
 def input_data():
     if request.method == 'POST':
@@ -153,5 +170,4 @@ def delete(id):
     return redirect(url_for('index'))
 
 if __name__ == "__main__":
-    db.create_all()
     app.run(debug=True)

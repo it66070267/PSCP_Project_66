@@ -5,7 +5,7 @@
 {% block header %} Sign up {% endblock %}
 
 {% block body %}
-<a href="{{ url_for('login') }}" class="btn btn-primary">Log in</a>
+<a href="{{ url_for('login_user') }}" class="btn btn-primary">Log in</a>
 <div class="card-body">
     <form action="{{ url_for('signup') }}" method="POST">
         <div class="form-group">
