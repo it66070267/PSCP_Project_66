@@ -5,38 +5,41 @@
 {% block header %} Log in {% endblock %}
 
 {% block body %}
-<div class="card text-center">
-<div class="card-header"><strong>FoodBooked</strong>-Login</div>
+<div class="container-fluid rounded-5 border text-center">
+<div class="row">
+    <div class="col-7 rounded-5 py-2" style="background-color:rgb(226,108,1);" disable>
+    <a class="text-decoration-none fs-1 fw-bolder" href="#"><div style="color:wheat ">Login</div></a>
+</div>
+    <div class="col-5 py-2 rounded-5">
+    <a class="text-decoration-none fs-2 fw-bolder" href="{{url_for('signup')}}"><div style="color:rgb(226,108,1)">Sign Up</div></a>
+</div>
+</div>
 </div>
     <div class="card-body mt-2 pd-2">
         <form action="{{ url_for('login') }}" method="POST">
-            <div class="form-group">
-                <label for="username">Username:</label>
+            <div class="form-group pt-5">
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <div class="input-group-text">#</div>
                     </div>
-                    <input type="text" id="username" class="form-control" placeholder="Input Username" name="username" required>
+                    <input type="text" id="username" class="form-control" placeholder="Username e.g. it66070129" name="username" required>
                 </div>
             </div>
         
-            <div class="form-group">
-                <label for="telp">Password:</label>
+            <div class="form-group pt-3">
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <div class="input-group-text">#</div>
                     </div>
-                    <input type="password" id="password" class="form-control" placeholder="Input Password" name="password" required>
+                    <input type="password" id="password" class="form-control" placeholder="Password ********" name="password" required>
                 </div>
             </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-success btn-sm" name="submit">Submit</button>
-                <button type="reset" class="btn btn-danger btn-sm">Cancel</button>
+            <div class="form-group pt-5">
+                <div class="d-grid">
+                <button type="submit" class="btn btn-lg border rounded-5 fw-bolder fs-3 py-3" style="background-color:rgb(229,119,1);color:wheat"name="submit">Submit</button>
             </div>
-            
+            </div>
         </form>
-    <div> <p class="d-inline pr-2">Don't have account yet?</p><a href="{{ url_for('signup') }}" class="btn btn-primary">Sign up</a></div>
         
     </div>
-
 {% endblock %}
