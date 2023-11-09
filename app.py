@@ -65,21 +65,21 @@ def signup():
 #< login >
 @app.route('/', methods=['GET', 'POST'])
 def login_user():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
+    # if request.method == 'POST':
+    #     username = request.form['username']
+    #     password = request.form['password']
 
-        user_data = user.query.filter_by(username=username).first()
+    #     user_data = user.query.filter_by(username=username).first()
 
-        if user_data and user_data.password == password:
-            #flash('Login successful', 'success')
-            return redirect(url_for('page'))
-        else:
-            flash('Login failed. Check your credentials and try again.', 'danger')
-        return render_template('login.html')
+    #     if user_data and user_data.password == password:
+    #         #flash('Login successful', 'success')
+    #         return redirect(url_for('page'))
+    #     else:
+    #         flash('Login failed. Check your credentials and try again.', 'danger')
+    #     return render_template('login.html')
  
-    return render_template('login.html')
-
+    # return render_template('login.html')
+    return render_template("page.html")
 #< home >
 @app.route('/page')
 def page():
