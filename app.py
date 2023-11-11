@@ -48,7 +48,7 @@ class user(db.Model):
 def change_pass():
     return render_template('changepass.html')
 
-@login_manager.user_loader
+# @login_manager.user_loader
 def load_user(user_id):
     return user.query.get(int(user_id))
 
@@ -68,8 +68,9 @@ def login():
 
 #< home >
 @app.route('/page')
-@login_required
+# @login_required
 def page():
+    return render_template('page.html')
     return 'Welcome to your dashboard, {}'.format(current_user.username)
 
 @app.route('/home')
@@ -77,7 +78,7 @@ def home():
     return render_template('home.html')
 #< logout >
 @app.route('/logout')
-@login_required
+# @login_required
 def logout():
     logout_user()
     return redirect(url_for('login'))
@@ -120,9 +121,9 @@ def login_user():
     # return render_template('login.html')
     return render_template("page.html")
 #< home >
-@app.route('/page')
-def page():
-    return render_template('page.html')
+# @app.route('/page')
+# def page():
+#     return render_template('page.html')
 
 #< logout >
 @app.route('/logout')
