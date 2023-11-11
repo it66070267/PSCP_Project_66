@@ -1,6 +1,6 @@
-from flask import Flask, render_template, url_for, request, session, flash, redirect, make_response
+from flask import Flask, render_template, url_for, request, session, flash, redirect
 from flask_sqlalchemy import SQLAlchemy
-from werkzeug.security import generate_password_hash, check_password_hash
+
 
 app = Flask(__name__)
 app.secret_key = "djfljdfljfnkjsfhjfshjkfjfjfhjdhfdjhdfu"
@@ -39,9 +39,18 @@ class user(db.Model):
         self.email = email
         self.password = password
     
-    def __repr__(self):
-        return f'<user: {self.username}>'
+    # def __repr__(self):
+    #     return f'<user: {self.username}>'
 
+class Menu(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(255), nullable=False)
+    price = db.Column(db.Integer(), nullable=False)
+
+    def __init__(self, name, price):
+        self.name = name
+        self.price = price
+        
 #<----------------- user ------------------>
 #< sign up >
 @app.route('/signup', methods=['GET', 'POST'])
@@ -58,7 +67,6 @@ def signup():
         add_data = user(username=username, email=email, password=password)
         db.session.add(add_data)
         db.session.commit()
-
     # flash('Signup successful', 'success')
     return render_template('signup.html')
 
@@ -77,7 +85,6 @@ def login_user():
         else:
             flash('Login failed. Check your credentials and try again.', 'danger')
         return render_template('login.html')
- 
     return render_template('login.html')
 
 #< home >
@@ -90,6 +97,11 @@ def page():
 def logout_user():
     return redirect(url_for('login_user'))
 
+#< menu >
+@app.route('/menu')
+def select_menu():
+    data_menu = Menu.query.all()
+    return render_template('menu.html', data=data_menu)
 
 #<----------------- employee ------------------>
 @app.route('/admin', methods=['GET', 'POST'])
@@ -102,11 +114,10 @@ def login_admin():
 
         if user_data and user_data.password == password:
             #flash('Login successful', 'success')
-            return redirect(url_for('index'))
+            return redirect(url_for('home_admin'))
         else:
             flash('Login failed. Check your credentials and try again.', 'danger')
         return render_template('login_admin.html')
- 
     return render_template('login_admin.html')
 
 #< log out >
@@ -139,9 +150,7 @@ def input_data():
         db.session.commit()
 
         flash("Input Data Success")
-
         return redirect(url_for('index'))
-
     return render_template('input.html')
 
 #< edit >
@@ -162,7 +171,6 @@ def proses_edit():
     db.session.commit()
 
     flash('Edit Data Success')
-
     return redirect(url_for('index'))
 
 #< delete >
@@ -173,8 +181,20 @@ def delete(id):
     db.session.commit()
 
     flash('Delete Data Success')
-
     return redirect(url_for('index'))
+
+#< home_admin >
+@app.route('/home_admin')
+def home_admin():
+    return render_template('page_admin.html')
+
+#< order >
+@app.route('/order', methods=['GET', 'POST'])
+def order():
+    selected_value = request.form.get('sources')
+
+        # return f'Selected Value: {selected_value}'
+    return render_template('order.html')
 
 if __name__ == "__main__":
     app.run(debug=True)

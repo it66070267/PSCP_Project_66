@@ -5,8 +5,6 @@
 {% block header %} Table Data {% endblock %}
 
 {% block body %}
-    <a href="{{ url_for('input_data') }}" class="btn btn-primary" style="margin-bottom: 1.3rem;">Add Data</a>
-    <a href="{{ url_for('logout_admin') }}" class="btn btn-primary" style="margin-bottom: 1.3rem;">Log out</a>
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for message in messages %}

@@ -1,0 +1,26 @@
+{% extends 'home.html' %}
+
+{% block title %} Menu {% endblock %}
+
+{% block header %} Menu {% endblock %}
+
+{% block body %}
+<div class="custom-select-content-wrapper">
+    <div class="custom-select-form-wrapper">
+        <h1 class="custom-select-heading">เส้น</h1>
+            <form action="{{ url_for('select_menu') }}" method="post">
+                <fieldset>
+                    <select name="sources" id="sources" class="custom-select sources" data-placeholder="Select box">
+                        {% for menu in data %}
+                            <option value="{{ menu.id }}">{{ menu.name }}</option>
+                        {% endfor %}
+                    </select>
+                </fieldset>
+            </form>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-success btn-sm" style="margin-top: 10px;" onclick="return confirm('คุณแน่ใจว่าจะยืนยันคำสั่งจอง')">ยืนยันคำสั่งจอง</button>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block header %} Home {% endblock %}
+
+{% block body %}
+    <a href="{{ url_for('order') }}" class="btn btn-primary" style="margin-bottom: 1.3rem;">ออเดอร์ของวันนี้</a>
+    <a href="{{ url_for('input_data') }}" class="btn btn-primary" style="margin-bottom: 1.3rem;">Add Data</a>
+    <a href="{{ url_for('index') }}" class="btn btn-primary" style="margin-bottom: 1.3rem;">Table data</a>
+    <a href="{{ url_for('logout_admin') }}" class="btn btn-primary" style="margin-bottom: 1.3rem;">Log out</a>
+    
+
+{% endblock %}
