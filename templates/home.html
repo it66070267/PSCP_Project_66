@@ -1,28 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FoodBooked - {% block title %} {% endblock%}</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-</head>
-<body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-light bg-light" style="margin-bottom: 1.5rem;">
-        <div class="container">
-            <span class="navbar-text">
-                <h3>FoodBooked - {% block header %} {% endblock%}</h3>
-            </span>
+{% extends 'navbar.html' %}
+{% block title %} Home {% endblock %}
+  {% block header %} Home
+{% endblock %}
+  {% block body %}
+  <div class="my-5 d-flex align-items-center justify-content-center">
+    <div class="container border border-black rounded-5 p-5 bg-light bg-opacity-75">
+      <div class="row">
+        <div class="col text-center fw-medium fs-5 me-2">มื้อนี้สิกินหยังดีน้อ.... <strong class="d-inline">เลือกเลย!</strong>
+          <div class="addScroll fs-6 card mt-3">
+            <ul class="text-start fs-5 mt-2 fw-normal">
+              <li>ก๋วยเตี๋ยว</li>
+              <li>ข้าวมันไก่</li>
+              <li>สปาเก็ตตี้</li>
+              <li>สเต๊กหมู</li>
+              <li>ข้าวไก่กรอบ</li>
+              <li>ข้าวราดผัดกระเพรา</li>
+              <li>ข้าวผัด</li>
+              <li>เมนูอาหาร</li>
+              <li>เมนูอาหาร</li>
+              <li>เมนูอาหาร</li>
+              <li>เมนูอาหาร</li>
+              <li>เมนูอาหาร</li>
+            </ul>
+              </div>
         </div>
-    </nav>
-    <div class="container">
-        {% block body %}
-
-        {% endblock %}
+        <div class="col"><div class="card-header fw-bolder fs-5 mt-3"><i class="me-2 bi bi-emoji-smile-fill"></i>ร้านค้าที่เปิดอยู่</div>
+        <div class="addScroll fs-6 card">
+      <a href="{{url_for('login')}}" class="text-decoration-none"><div class="text-center p-2 mt-2 rounded-5 mx-5 orange-border">ร้านนี้ขายก๋วยเตี๋ยว</div></a>
+      <a href="{{url_for('login')}}" class="text-decoration-none"><div class="text-center p-2 mt-2 rounded-5 mx-5 orange-border">ร้านนี้ยังไม่มีเจ้าของ</div></a>
+      <a href="{{url_for('login')}}" class="text-decoration-none"><div class="text-center p-2 mt-2 rounded-5 mx-5 orange-border">ร้านนี้ยังไม่มีเจ้าของ</div></a>
+      <a href="{{url_for('login')}}" class="text-decoration-none"><div class="text-center p-2 mt-2 rounded-5 mx-5 orange-border">ร้านนี้ยังไม่มีเจ้าของ</div></a>
+      <a href="{{url_for('login')}}" class="text-decoration-none"><div class="text-center p-2 mt-2 rounded-5 mx-5 orange-border">ร้านนี้ยังไม่มีเจ้าของ</div></a>
+      <a href="{{url_for('login')}}" class="text-decoration-none"><div class="text-center p-2 mt-2 rounded-5 mx-5 orange-border">ร้านนี้ยังไม่มีเจ้าของ</div></a>
+      <a href="{{url_for('login')}}" class="text-decoration-none"><div class="text-center p-2 mt-2 rounded-5 mx-5 orange-border">ร้านนี้ยังไม่มีเจ้าของ</div></a>
+      <a href="{{url_for('login')}}" class="text-decoration-none"><div class="text-center p-2 mt-2 rounded-5 mx-5 orange-border">ร้านนี้ยังไม่มีเจ้าของ</div></a>
+      <a href="{{url_for('login')}}" class="text-decoration-none"><div class="text-center p-2 mt-2 rounded-5 mx-5 orange-border">ร้านนี้ยังไม่มีเจ้าของ</div></a>
+        </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-</body>
-</html>
+    </div>
+    </div>
+  </div>
+  </div>
+  <div class="my-5 d-flex align-items-center justify-content-center">
+    <div class="container border border-black rounded-5 p-5 bg-light bg-opacity-75">
+      <div class="row">
+      <div class="col text-center fw-bolder fs-3 fw-bolder card-header card me-2" style="background: -webkit-linear-gradient(#FF4242, #F4D155);-webkit-background-clip: text;-webkit-text-fill-color: transparent;">ถ้ายังนึกไม่ออกสุ่มเลย!
+        <button type="submit" id="presstorandom" class="btn mt-3"><div class="p-2 random"></div></button>
+      </div>
+      <div class="col rounded-5 p-2 text-center d-inline-block">
+          <div class="fs-2 fw-bold fst-italic mt-5">เราขอแนะนำ</div>
+          <div class="fs-1 fw-bolder mt-2" id="randomFood"></div>
+      </div>
+    </div>
+    </div>
+  </div>
+{% endblock %}
