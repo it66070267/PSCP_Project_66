@@ -16,7 +16,7 @@
     </div>
     </div>
     </div>
-
+<div class="mt-2">
 {% with messages = get_flashed_messages() %}
 {% if messages %}
     {% for message in messages %}
@@ -29,6 +29,7 @@
     {% endfor %}
 {% endif%}
 {% endwith %}
+</div>
 <div class="card-body mt-2 pd-2">
     <form action="{{ url_for('change_pass') }}" method="POST">
         <div class="form-group pt-5">

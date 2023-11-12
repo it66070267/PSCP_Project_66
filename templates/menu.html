@@ -1,4 +1,4 @@
-{% extends 'home.html' %}
+{% extends 'navbar-page.html' %}
 
 {% block title %} Menu {% endblock %}
 
@@ -15,52 +15,19 @@
         @import url('https://fonts.googleapis.com/css2?family=Offside&display=swap');
 
         body {
-            background: #FFF;
-            width: 390px;
-            height: 844px;
-        }
-
-        #h1 {
-            color: #F80;
-            text-align: left;
-            font-size: 32px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: normal;
-            font-family: 'Offside', sans-serif;
-        }
-
-        #h2 {
-            color: #BDBABA;
-            font-size: 13px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: normal;
-            font-family: 'Offside', sans-serif;
-        }
-
-        #buttonn {
-            width: 328px;
-            height: 56px;
-            flex-shrink: 0;
-            fill: #FF7A00;
-            filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.50));
-            color: #FFF;
-            text-align: center;
-            font-size: 32px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: normal;
             font-family: 'Offside', sans-serif;
         }
 
     </style>
     </head>
     <body>
+        <div class="mt-5">
+        <div class="my-5 d-flex align-items-center justify-content-center">
+        <div class="container border border-black rounded-5 p-5 bg-light bg-opacity-75">
         <form action="{{ url_for('receive') }}" method="POST">
             <div class="custom-select-content-wrapper">
                 <div class="custom-select-form-wrapper">
-                    <h1 class="custom-select-heading" id="h1">เส้น</h1>
+                    <h1 class="custom-select-heading h-1 fw-nornal" style="color:#FF8800;">เส้น</h1>
                     <h2 class="custom-select-heading2" id="h2">จำเป็นต้องเลือก</h2>
                         
                             <fieldset>
@@ -72,7 +39,8 @@
                             </fieldset>
                 </div>
                 <div>
-                    <button type="submit" class="btn btn-success btn-sm" id="buttonn" style="margin-top: 10px;" onclick="show_alert()">ยืนยันคำสั่งจอง</button>
+                    <!-- <a href="{{ url_for('receive') }}" class="btn btn-success btn-sm" style="margin-top: 10px;" onclick="return confirm('คุณแน่ใจว่าจะยืนยันคำสั่งจอง')">ยืนยันคำสั่งจอง</a> -->
+                    <button type="submit" class="btn btn-success btn-lg mt-3" id="buttonn">ยืนยันคำสั่งจอง</button>
                 </div>
             </div>
         </form>
@@ -82,7 +50,9 @@
                 alert("")
             }
         </script>
-
-    </body>
+    </div>
+</div>
+</div>
+</body>
 </html>
 {% endblock %}
