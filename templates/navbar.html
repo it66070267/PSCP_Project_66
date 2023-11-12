@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodBooked - {% block title %} {% endblock%}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Prompt&family=Sarabun&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Mitr:wght@300&display=swap');
+        *{
+            font-family: 'Prompt', sans-serif;
+        }
+        .nav-bar-font{
+            font-family: 'Mitr', sans-serif;
+        }
+
+        .padkrapao {
+        background: url(../static/padkrapao.png);
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position:fixed;
+
+      }
+      .kaopad {
+        height:80vh;
+        background: url(../static/kaopad.png);
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position-x: right;
+        background-position-y: bottom;
+      }
+      .addScroll {
+        overflow-y: auto;
+        max-height: 30vh;
+      }
+
+      body{
+        background-color:#FFEFD3;
+      }
+      .random{
+        background: url(../static/random.svg);
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position-x: center;
+        height:30vh;
+      }
+
+      .random:hover{
+        background: url(../static/random-2.svg);
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position-x: center;
+        max-height:30vh;
+      }
+
+      .orange-border{
+        background: linear-gradient(white, white) padding-box, linear-gradient(to right, #FF7A00, #FFB700) border-box;
+        border: 4px solid transparent;
+        color:#FF7A00;
+      }
+    </style>
+  </head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-none bg-body-tertiary border-3 border-secondary border" style="background-image: linear-gradient(to right, #FF8800, #FFA72E, #FEFFB5);">
+        <div class="container">
+          <a class="navbar-brand p-2" href="{{url_for('home')}}" style="color:#FF8800"><img src="../static/assets_2.svg" class="me-2" style="width:15%"><img src="../static/FoodBooked-icon.svg" style="width:80%"></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav me-auto mb-2 mt-2 mb-lg-0 p-2 fs-3 border border-2 border-light rounded-2">
+              <li class="nav-item">
+                <a class="nav-link active nav-bar-font" aria-current="page" href="{{url_for('home')}}" style="color:white;"><i class="me-2 bi bi-house-door"></i>Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link d-inline nav-bar-font" href="{{ url_for('login_user') }}" style="color:white;"><i class="me-2 bi bi-box-arrow-in-right"></i>Login</a> <div style="color:white;" class="d-inline">/</div> <a style="color:white;" class="d-inline nav-link" href="{{url_for('signup')}}"><i class="mx-2 bi bi-box-arrow-in-left"></i>Sign Up</a>
+              </li>
+              <li class="nav-item">
+                <a style="color:white;" class="nav-link nav-bar-font" href="#"><i class="me-2 bi bi-file-earmark-person-fill"></i>About Us</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+        {% block body %}
+        {% endblock%}
+</body>
+</html>

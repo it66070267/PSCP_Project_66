@@ -1,5 +1,6 @@
 from flask import Flask, render_template, url_for, request, session, flash, redirect, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from flask_bcrypt import Bcrypt #pip install Flask-Bcrypt
 
 app = Flask(__name__)
 app.secret_key = "djfljdfljfnkjsfhjfshjkfjfjfhjdhfdjhdfu"
@@ -15,6 +16,7 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 # app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
+bcrypt = Bcrypt()
 class Employes(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(100), nullable=False)
@@ -89,18 +91,60 @@ def login_user():
         user_data = user.query.filter_by(username=username).first()
 
         if user_data and user_data.password == password:
-            return redirect(url_for('page'))
+            return redirect(url_for('home'))
         else:
             flash('Login failed. Check your credentials and try again.', 'danger')
         return render_template('login.html')
     
     return render_template('login.html')
 
+@app.route('/changepass', methods=['GET', 'POST'])
+def change_pass():
+    if request.method == 'POST':
+        username = request.form['username']
+        email = request.form['email']
+
+        user_data = user.query.filter_by(username=username).first()
+
+        if user_data and user_data.email == email:
+            password = request.form['password']
+            confirm = request.form['confirm-password']
+
+            if password == confirm:
+                user_data.password = password
+                db.session.commit()
+
+                flash('Your password has been successfully changed.', 'success')
+                return redirect(url_for('home'))
+            else:
+                flash('Password and confirmation do not match. Please try again.', 'danger')
+        else:
+            flash('Username or email is incorrect. Please check your credentials and try again.', 'danger')
+        return render_template('changepass.html')
+
+    return render_template('changepass.html')
+
+# @login_manager.user_loader
+# def load_user(user_id):
+#     return user.query.get(int(user_id))
+
 #< home >
-@app.route('/page')
-def page():
-    """page"""
-    return render_template('page.html')
+@app.route('/home')
+def home():
+    """home"""
+    return render_template('home.html')
+
+# @app.route('/page')
+# @login_required
+# def page():
+#     return 'Welcome to your dashboard, {}'.format(current_user.username)
+
+#< logout >
+# @app.route('/logout')
+# @login_required
+# def logout():
+#     logout_user()
+#     return redirect(url_for('login'))
 
 #< logout >
 @app.route('/logout')
