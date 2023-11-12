@@ -13,21 +13,16 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Prompt&family=Sarabun&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Mitr:wght@300&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Offside&display=swap');
         *{
             font-family: 'Prompt', sans-serif;
         }
         .nav-bar-font{
             font-family: 'Mitr', sans-serif;
         }
-
-        .padkrapao {
-        background: url(../static/Artboard-1.png);
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position:center;
-        height:100vh;
-
-      }
+        .font-offside{
+            font-family: 'offside', sans-serif;
+        }
       .addScroll {
         overflow-y: auto;
         max-height: 30vh;
@@ -73,7 +68,10 @@
                 <a class="nav-link active nav-bar-font" aria-current="page" href="{{url_for('home')}}" style="color:white;"><i class="me-2 bi bi-house-door"></i>Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-inline nav-bar-font" href="{{ url_for('login_user') }}" style="color:white;"><i class="me-2 bi bi-box-arrow-in-right"></i>Login</a> <div style="color:white;" class="d-inline">/</div> <a style="color:white;" class="d-inline nav-link" href="{{url_for('signup')}}"><i class="mx-2 bi bi-box-arrow-in-left"></i>Sign Up</a>
+                <a class="nav-link d-inline nav-bar-font" href="{{ url_for('logout_user')}}" style="color:white;"><i class="me-2 bi bi-door-open"></i>Logout</a>
+              </li>
+              <li class="nav-item">
+                <a style="color:white;" class="nav-link nav-bar-font" href="#"><i class="me-2 bi bi-egg-fried"></i></i>Ordered Status</a>
               </li>
               <li class="nav-item">
                 <a style="color:white;" class="nav-link nav-bar-font" href="#"><i class="me-2 bi bi-file-earmark-person-fill"></i>About Us</a>
