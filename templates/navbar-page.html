@@ -20,14 +20,6 @@
             font-family: 'Mitr', sans-serif;
         }
 
-        .padkrapao {
-        background: url(../static/Artboard-1.png);
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position:center;
-        height:100vh;
-
-      }
       .addScroll {
         overflow-y: auto;
         max-height: 30vh;
@@ -63,17 +55,20 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-none bg-body-tertiary border-3 border-secondary border" style="background-image: linear-gradient(to right, #FF8800, #FFA72E, #FEFFB5);">
         <div class="container-fluid">
-          <a class="navbar-brand p-2" href="{{url_for('home')}}" style="color:#FF8800"><img src="../static/assets_2.svg" class="me-2" style="width:10%"><img src="../static/FoodBooked-icon.svg" style="width:60%"></a>
+          <a class="navbar-brand p-2" href="{{url_for('page')}}" style="color:#FF8800"><img src="../static/assets_2.svg" class="me-2" style="width:10%"><img src="../static/FoodBooked-icon.svg" style="width:60%"></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav me-auto mb-2 mt-2 mb-lg-0 p-2 fs-3 border border-2 border-light rounded-2">
               <li class="nav-item">
-                <a class="nav-link active nav-bar-font" aria-current="page" href="{{url_for('home')}}" style="color:white;"><i class="me-2 bi bi-house-door"></i>Home</a>
+                <a class="nav-link active nav-bar-font" aria-current="page" href="{{url_for('page')}}" style="color:white;"><i class="me-2 bi bi-house-door"></i>Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-inline nav-bar-font" href="{{ url_for('login_user') }}" style="color:white;"><i class="me-2 bi bi-box-arrow-in-right"></i>Login</a> <div style="color:white;" class="d-inline">/</div> <a style="color:white;" class="d-inline nav-link" href="{{url_for('signup')}}"><i class="mx-2 bi bi-box-arrow-in-left"></i>Sign Up</a>
+                <a class="nav-link d-inline nav-bar-font" href="{{ url_for('logout_user')}}" style="color:white;"><i class="me-2 bi bi-door-open"></i>Logout</a>
+              </li>
+              <li class="nav-item">
+                <a style="color:white;" class="nav-link nav-bar-font" href="#"><i class="me-2 bi bi-egg-fried"></i></i>Ordered Status</a>
               </li>
               <li class="nav-item">
                 <a style="color:white;" class="nav-link nav-bar-font" href="#"><i class="me-2 bi bi-file-earmark-person-fill"></i>About Us</a>
