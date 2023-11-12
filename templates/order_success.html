@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %} Success {% endblock %}
+
+{% block header %} เสร็จสิ้น {% endblock %}
+
+{% block body %}
+
+<!-- status=2 -->
+<a href="{{ url_for('order') }}" class="btn btn-primary" style="margin-bottom: 1.3rem;">Home</a>
+<div>
+    {% for order in order_list %}
+        <ul>
+            <li>{{ order.user_name }}</li>
+            <li>{{ order.user_email }}</li>
+            <li>{{ order.menu_name }}</li>
+            <li>{{ order.menu_price }}</li>
+        </ul>
+    {% endfor %}
+</div>
+
+
+{% endblock %}

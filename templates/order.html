@@ -2,15 +2,35 @@
 
 {% block title %} Order {% endblock %}
 
-{% block header %} Order {% endblock %}
+{% block header %} รายการใหม่ {% endblock %}
 
 {% block body %}
-
-<form action="{{ url_for('order') }}" method="post">
-    {% for menu in data %}
-        <h2>{{ menu.name }}</h2>
-        {% endfor %}
-</form>
-
+<!-- status=0 -->
+    <a href="{{ url_for('home_admin') }}"class="btn btn-primary" style="margin-bottom: 1.3rem;">Home</a>
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Username</th>
+                <th scope="col">Email</th>
+                <th scope="col">Order</th>
+                <th scope="col">Price</th>
+                <th scope="col">Select</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in order_list %}
+                <tr>
+                    <td>{{ order.user_name }}</td>
+                    <td>{{ order.user_email }}</td>
+                    <td>{{ order.menu_name }}</td>
+                    <td>{{ order.menu_price }}</td>
+                    <td>
+                        <a href="{{ url_for('id_order', id=order.id) }}" class="btn btn-success">ยืนยันรับออเดอร์</a>
+                        <a href="#" class="btn btn-danger">ยกเลิกออเดอร์</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
 {% endblock %}
