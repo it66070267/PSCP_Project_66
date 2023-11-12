@@ -10,7 +10,7 @@
     <div class="container">
       <div class="row">
         <div class="col text-center"><img src="../static/bowl.png" style="width:15vh">
-            <div class="mt-3 fs-2 fw-bolder">ยินดีต้อนรับ....คุณ{{username}}</div>
+            <div class="mt-3 fs-2 fw-bolder">ยินดีต้อนรับ....คุณ {{ username }}</div>
         </div>
     </div>
 </div>
@@ -66,4 +66,16 @@
     </div>
     </div>
   </div>
+
+  <script>
+    document.getElementById('presstorandom').addEventListener('click', function() {
+        // ทำการส่งคำขอไปยังเซิร์ฟเวอร์เมื่อคลิกปุ่ม
+        fetch('/random_text')
+            .then(response => response.json())
+            .then(data => {
+                // แสดงข้อความสุ่มที่ได้จากเซิร์ฟเวอร์
+                document.getElementById('randomFood').innerText = data.name;
+            });
+    });
+</script>
 {% endblock %}

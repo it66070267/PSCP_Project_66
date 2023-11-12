@@ -2,6 +2,8 @@ from flask import Flask, render_template, url_for, request, session, flash, redi
 from flask_sqlalchemy import SQLAlchemy
 from flask_session import Session
 from flask_bcrypt import Bcrypt #pip install Flask-Bcrypt
+from sqlalchemy.sql import func
+import random
 
 app = Flask(__name__)
 app.secret_key = "djfljdfljfnkjsfhjfshjkfjfjfhjdhfdjhdfu"
@@ -94,8 +96,9 @@ def login_user():
 
         if user_data and user_data.password == password:
             session['user_id'] = user_data.id
-
-            return redirect(url_for('home'))
+            
+            return render_template('page.html', username=user_data.username)
+            # return redirect(url_for('page'))
         if admin_data and admin_data.password == password:
             return redirect(url_for('order'))
         else:
@@ -130,27 +133,21 @@ def change_pass():
 
     return render_template('changepass.html')
 
-# @login_manager.user_loader
-# def load_user(user_id):
-#     return user.query.get(int(user_id))
-
 #< home >
 @app.route('/home')
 def home():
     """home"""
     return render_template('home.html')
 
-# @app.route('/page')
-# @login_required
-# def page():
-#     return 'Welcome to your dashboard, {}'.format(current_user.username)
+@app.route('/page')
+def page():
 
-#< logout >
-# @app.route('/logout')
-# @login_required
-# def logout():
-#     logout_user()
-#     return redirect(url_for('login'))
+    return render_template('page.html')
+
+@app.route('/random_text', methods=['GET'])
+def random_text():
+    random_data = Menu.query.order_by(func.rand()).first()
+    return jsonify({'name': random_data.name})
 
 #< logout >
 @app.route('/logout')
@@ -327,12 +324,6 @@ def cancel(id):
     db.session.commit()
 
     return redirect(url_for('order'))
-    # data_order = Order.query.get(id)
-    # new_status = request.form.get('status', 3)
-    # data_order.status = new_status
-    # db.session.commit()
-    # return redirect(url_for('status'))
-    # return redirect(url_for('id_order2', id=id))
 
 #< change status => 1 continue >
 @app.route('/continue/<int:id>')
