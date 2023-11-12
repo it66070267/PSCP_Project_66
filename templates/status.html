@@ -1,13 +1,13 @@
-{% extends 'home.html' %}
+{% extends 'page.html' %}
 
 {% block title %} Status {% endblock %}
 
 {% block header %} Status {% endblock %}
 
 {% block body %}
-
-<div>
-    <h3>รายการที่สั่ง</h3>
+<div class="text-center my-5 fw-bolder fst-italic fs-1">รายการที่สั่ง</div>
+<div class="my-5 d-flex align-items-center justify-content-center">
+    <div class="container border border-black rounded-5 p-5 bg-light bg-opacity-75">
     {% for order in order_list %}
         <ul>
             <li>{{ order.user_name }}</li>
@@ -17,7 +17,7 @@
         </ul>
     {% endfor %}
 </div>
-
+</div>
 <div>
     {{ message }}
 </div>
