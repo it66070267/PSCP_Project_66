@@ -57,25 +57,26 @@
     </style>
     </head>
     <body>
-        <div class="custom-select-content-wrapper">
-            <div class="custom-select-form-wrapper">
-                <h1 class="custom-select-heading" id="h1">เส้น</h1>
-                <h2 class="custom-select-heading2" id="h2">จำเป็นต้องเลือก</h2>
-                    <form action="{{ url_for('select_menu') }}" method="post">
-                        <fieldset>
-                            <select name="sources" id="sources" class="custom-select sources" data-placeholder="Select box">
-                                {% for menu in data %}
-                                    <option value="{{ menu.id }}">{{ menu.name }}</option>
-                                {% endfor %}
-                            </select>
-                        </fieldset>
-                    </form>
+        <form action="{{ url_for('receive') }}" method="POST">
+            <div class="custom-select-content-wrapper">
+                <div class="custom-select-form-wrapper">
+                    <h1 class="custom-select-heading" id="h1">เส้น</h1>
+                    <h2 class="custom-select-heading2" id="h2">จำเป็นต้องเลือก</h2>
+                        
+                            <fieldset>
+                                <select name="id_menu" id="menu_id" class="custom-select sources" data-placeholder="Select box" oonchange="this.form.submit()">
+                                    {% for menu in data %}
+                                        <option value="{{ menu.id }}">{{ menu.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </fieldset>
+                </div>
+                <div>
+                    <!-- <a href="{{ url_for('receive') }}" class="btn btn-success btn-sm" style="margin-top: 10px;" onclick="return confirm('คุณแน่ใจว่าจะยืนยันคำสั่งจอง')">ยืนยันคำสั่งจอง</a> -->
+                    <button type="submit" class="btn btn-success btn-sm" id="buttonn" style="margin-top: 10px;">ยืนยันคำสั่งจอง</button>
+                </div>
             </div>
-            <div>
-                <a href="{{ url_for('status') }}" class="btn btn-success btn-sm" style="margin-top: 10px;" onclick="return confirm('คุณแน่ใจว่าจะยืนยันคำสั่งจอง')">ยืนยันคำสั่งจอง</a>
-                <!-- <button type="submit" class="btn btn-success btn-sm" id="buttonn" style="margin-top: 10px;" onclick="return confirm('คุณแน่ใจว่าจะยืนยันคำสั่งจอง')">ยืนยันคำสั่งจอง</button> -->
-            </div>
-        </div>
+        </form>
     </body>
 </html>
 {% endblock %}

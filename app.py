@@ -1,5 +1,6 @@
 from flask import Flask, render_template, url_for, request, session, flash, redirect, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from flask_session import Session
 from flask_bcrypt import Bcrypt #pip install Flask-Bcrypt
 
 app = Flask(__name__)
@@ -59,7 +60,7 @@ class Order(db.Model):
         self.id_user = id_user
         self.id_menu = id_menu
         self.status = status
-        
+
 #<----------------- user ------------------>
 #< sign up >
 @app.route('/signup', methods=['GET', 'POST'])
@@ -89,9 +90,14 @@ def login_user():
         password = request.form['password']
 
         user_data = user.query.filter_by(username=username).first()
+        admin_data = Employes.query.filter_by(username=username).first()
 
         if user_data and user_data.password == password:
+            session['user_id'] = user_data.id
+
             return redirect(url_for('home'))
+        if admin_data and admin_data.password == password:
+            return redirect(url_for('order'))
         else:
             flash('Login failed. Check your credentials and try again.', 'danger')
         return render_template('login.html')
@@ -115,7 +121,7 @@ def change_pass():
                 db.session.commit()
 
                 flash('Your password has been successfully changed.', 'success')
-                return redirect(url_for('home'))
+                return redirect(url_for('login_user'))
             else:
                 flash('Password and confirmation do not match. Please try again.', 'danger')
         else:
@@ -159,47 +165,45 @@ def select_menu():
     data_menu = Menu.query.all()
     return render_template('menu.html', data=data_menu)
 
-# @app.route('/status/<int:id>')
-# def status(id):
+@app.route('/list_order', methods=['GET'])
+def list_order():
+    """list order"""
+    id_user = session.get('user_id')
+    data_order = Order.query.get(id_user)
+    if request.method == 'GET':
+        order_list = []
+        data_user = user.query.get(data_order.id_user)
+        data_menu = Menu.query.get(data_order.id_menu)
+        response = {
+            'user_name': data_user.username,
+            'user_email': data_user.email,
+            'menu_name': data_menu.name,
+            'menu_price': data_menu.price,
+        }
+    
+        order_list.append(response)
+
+        return render_template('status.html', order_list=order_list)
+    return render_template('status.html')
+
 @app.route('/status')
 def status():
     """status"""
-    # data_order = Order.query.get(id)
-    # if request.method == 'GET':
-    #     data_user = user.query.get(data_order.id_user)
-    #     data_menu = Menu.query.get(data_order.id_menu)
-    #     response = [{
-    #         'user_name': data_user.username,
-    #         'user_email': data_user.email,
-    #         'menu_name': data_menu.name,
-    #         'menu_price': data_menu.price,
-    #         'id': data_order.id
-    #     }]
+    id_user = session.get('user_id')
+    data_order = Order.query.get(id_user)
+    print(data_order)
+    if data_order.status == 0:
+        message = "รับออเดอร์"
+        return render_template('status.html', message=message)
+
     return render_template('status.html')
 
 #<----------------- employee ------------------>
-@app.route('/admin', methods=['GET', 'POST'])
-def login_admin():
-    """login"""
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-
-        user_data = Employes.query.filter_by(username=username).first()
-
-        if user_data and user_data.password == password:
-            return redirect(url_for('home_admin'))
-        else:
-            flash('Login failed. Check your credentials and try again.', 'danger')
-        return render_template('login_admin.html')
-    
-    return render_template('login_admin.html')
-
 #< log out >
 @app.route('/logout_admin')
 def logout_admin():
     """logout"""
-    return redirect(url_for('login_admin'))
+    return redirect(url_for('login_user'))
 
 #< employee list >
 @app.route('/all_data')
@@ -272,21 +276,21 @@ def home_admin():
     return render_template('page_admin.html')
 
 #< add orders to table >
-@app.route('/receive', methods=['POST'])
+@app.route('/receive', methods=['POST', 'GET'])
 def receive():
     """add orders to table"""
     if request.method == "POST":
-        data = request.json
-        id_user = data.get('id_user')
-        id_menu = data.get('id_menu')
-        status = data.get('status')
+        # data = request.json
+        id_user = session.get('user_id')
+        id_menu = request.form['id_menu']
+        status = 0
 
         if id_user is not None and id_menu is not None:
             add_data = Order(id_user=id_user, id_menu=id_menu, status=status)
             db.session.add(add_data)
             db.session.commit()
-            return jsonify({"id_user": add_data.id_user, "id_menu": add_data.id_menu, "status": add_data.status})
-        
+
+            return redirect(url_for('list_order'))
     return render_template('order.html')
 
 #< all order >
@@ -307,22 +311,28 @@ def order():
                 'user_email': data_user.email,
                 'menu_name': data_menu.name,
                 'menu_price': data_menu.price,
-                'id': data_order.id
-            }                
+                'id': data_order.id,
+            }
             order_list.append(response)
+        print(order_list)
         return render_template('order.html', order_list=order_list)
     return render_template('order.html')
 
 #< change status => 3 cancel order >
-# @app.route('/cancel/<int:id>')
-# def cancel():
-#     """cancel"""
-#     data_order = Order.query.get(id)
-#     new_status = request.form.get('status', 3)
-#     data_order.status = new_status
-#     db.session.commit()
-#     # return redirect(url_for('status'))
-#     return redirect(url_for('id_order2', id=id))
+@app.route('/cancel/<int:id>')
+def cancel(id):
+    """cancel"""
+    cancel_order = Order.query.get(id)
+    db.session.delete(cancel_order)
+    db.session.commit()
+
+    return redirect(url_for('order'))
+    # data_order = Order.query.get(id)
+    # new_status = request.form.get('status', 3)
+    # data_order.status = new_status
+    # db.session.commit()
+    # return redirect(url_for('status'))
+    # return redirect(url_for('id_order2', id=id))
 
 #< change status => 1 continue >
 @app.route('/continue/<int:id>')

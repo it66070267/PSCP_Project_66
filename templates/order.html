@@ -6,7 +6,10 @@
 
 {% block body %}
 <!-- status=0 -->
-    <a href="{{ url_for('home_admin') }}"class="btn btn-primary" style="margin-bottom: 1.3rem;">Home</a>
+<a href="{{ url_for('input_data') }}" class="btn btn-primary" style="margin-bottom: 1.3rem;">+Admin</a>
+<a href="{{ url_for('index') }}" class="btn btn-primary" style="margin-bottom: 1.3rem;">Table data</a>
+<a href="{{ url_for('logout_admin') }}" class="btn btn-primary" style="margin-bottom: 1.3rem;">Log out</a>
+
     <table class="table">
         <thead class="thead-light">
             <tr>
