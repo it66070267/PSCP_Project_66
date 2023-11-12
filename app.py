@@ -115,8 +115,10 @@ def select_menu():
     data_menu = Menu.query.all()
     return render_template('menu.html', data=data_menu)
 
-@app.route('/status/<int:id>')
-def status(id):
+# @app.route('/status/<int:id>')
+# def status(id):
+@app.route('/status')
+def status():
     """status"""
     # data_order = Order.query.get(id)
     # if request.method == 'GET':
