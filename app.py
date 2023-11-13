@@ -123,7 +123,7 @@ def change_pass():
     if request.method == 'POST':
         username = request.form['username']
         email = request.form['email']
-
+        success = False
         user_data = user.query.filter_by(username=username).first()
 
         if user_data and user_data.email == email:
@@ -133,7 +133,7 @@ def change_pass():
             if password == confirm:
                 user_data.password = password
                 db.session.commit()
-
+                success = True
                 flash('Your password has been successfully changed.', 'success')
                 return redirect(url_for('login_user'))
             else:
