@@ -20,18 +20,18 @@
     </div>
     </div>
     </div>
-    <!-- {% with messages = get_flashed_messages() %}
+{% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-success" role="alert" name="submit">
-                <strong>Success</strong> {{ message }}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                <strong>{{ category.capitalize() }}!</strong> {{ message }}
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">&times;</span>
                 </button>
             </div>
         {% endfor %}
-    {% endif%}
-{% endwith %} -->
+    {% endif %}
+{% endwith %}
 <div class="card-body mt-2 pd-2">
     <form action="{{ url_for('signup') }}" method="POST">
         <div class="form-group pt-5">
@@ -68,15 +68,11 @@
         </div>
         <div class="form-group pt-5">
             <div class="d-grid">
-            <button onclick="show_alert()" type="submit" class="btn btn-lg border rounded-5 fw-bolder fs-4 py-3" style="background-color:rgb(229,119,1);color:wheat" name="submit">Sign Up<i class="ps-2 bi bi-box-arrow-in-left"></i></button>
+            <button type="submit" class="btn btn-lg border rounded-5 fw-bolder fs-4 py-3" style="background-color:rgb(229,119,1);color:wheat" name="submit">Sign Up<i class="ps-2 bi bi-box-arrow-in-left"></i></button>
         </div>
         </div>
     </form>
-    <script>
-        function show_alert() {
-            alert("ยืนยันสำเร็จ");
-        }
-    </script>
+
 </div>
 </div>
 </div>

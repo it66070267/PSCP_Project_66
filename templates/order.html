@@ -21,13 +21,18 @@
     <a href="{{ url_for('logout_admin') }}" class="btn btn-primary" style="margin-bottom: 1.3rem; color: #417F56; font-size: 25px; font-family: Prompt; font-weight: 500; word-wrap: break-word; text-decoration: underline; background: none; border: #417F56;">ลงชื่อออก</a>
 {% endblock %}
 {% block body %}
-    <!-- <div style="width: 1480px; height: 1124px; background: rgba(217, 217, 217, 0.08); box-shadow: -70.23332977294922px 70.23332977294922px 70.23332977294922px rgba(255, 255, 255, 0.08) inset; border-radius: 50px; border: 8px #417F56 solid; backdrop-filter: blur(59px)"> -->
-        <!-- <div> -->
-        <!-- <img style="width: 80px; height: 80px" src="/images/logo.png" >
-        <a style="color: #417F56; font-size: 46px; font-family: Prompt; font-weight: 600; word-wrap: break-word;">ร้านนี้ขายก๋วยเตี๊ยว -->
-            <!-- <div> -->
-        
-            
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                <strong>{{ category.capitalize() }}!</strong> {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
         <div>
             <table class="table">
                 <thead class="thead-light">
@@ -54,11 +59,7 @@
                     {% endfor %}
                 </tbody>
             </table>
-            <!--<a href="{{ url_for('order') }}" class="btn btn-primary" style="top: 50px; margin-bottom: 1.3rem;">ออเดอร์ของวันนี้</a>-->
         </div>
-        <!-- <img style="width: 1465px; height: 800px; opacity: 0.40; overflow: hidden;" src="/images/Artboard 1.png"> -->
-            <!-- </div> -->
-        <!-- </div> -->
     </div>
 
 {% endblock %}

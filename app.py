@@ -89,7 +89,7 @@ def signup():
         add_data = user(username=username, email=email, password=password)
         db.session.add(add_data)
         db.session.commit()
-    flash('signup success!')
+        flash('signup success!', 'success')
     return render_template('signup.html')
 
 #< login >
@@ -107,9 +107,10 @@ def login_user():
             session['user_id'] = user_data.id
             session['user_name'] = user_data.username
             
-            # return render_template('page.html', username=user_data.username)
+            flash('ยินดีต้อนรับ!!!', 'success')
             return redirect(url_for('page'))
         if admin_data and admin_data.password == password:
+            flash('ยินดีต้อนรับสู่หน้า admin', 'success')
             return redirect(url_for('order'))
         else:
             flash('Login failed. Check your credentials and try again.', 'danger')
@@ -123,7 +124,6 @@ def change_pass():
     if request.method == 'POST':
         username = request.form['username']
         email = request.form['email']
-        success = False
         user_data = user.query.filter_by(username=username).first()
 
         if user_data and user_data.email == email:
@@ -133,9 +133,8 @@ def change_pass():
             if password == confirm:
                 user_data.password = password
                 db.session.commit()
-                success = True
-                flash('Your password has been successfully changed.')
-                return redirect(url_for('login_user'))
+                flash('Your password has been successfully changed.', 'success')
+                return render_template('login.html')
             else:
                 flash('Password and confirmation do not match. Please try again.', 'danger')
         else:
@@ -166,6 +165,7 @@ def random_text():
 @app.route('/logout')
 def logout_user():
     """logout"""
+    flash('Log out!', 'success')
     return redirect(url_for('login_user'))
 
 #< menu >
@@ -173,6 +173,7 @@ def logout_user():
 def select_menu():
     """menu"""
     data_menu = Menu.query.all()
+    flash('ยืนยันคำสั่งจองสำเร็จ!', 'success')
     return render_template('menu.html', data=data_menu)
 
 @app.route('/list_order', methods=['GET'])
@@ -196,23 +197,24 @@ def list_order():
         return render_template('status.html', order_list=order_list)
     return render_template('status.html')
 
-@app.route('/status')
-def status():
-    """status"""
-    id_user = session.get('user_id')
-    data_order = Order.query.get(id_user)
-    print(data_order)
-    if data_order.status == 0:
-        message = "รับออเดอร์"
-        return render_template('status.html', message=message)
+# @app.route('/status')
+# def status():
+#     """status"""
+#     id_user = session.get('user_id')
+#     data_order = Order.query.get(id_user)
+#     print(data_order)
+#     if data_order.status == 0:
+#         message = "รับออเดอร์"
+#         return render_template('status.html', message=message)
 
-    return render_template('status.html')
+#     return render_template('status.html')
 
 #<----------------- employee ------------------>
 #< log out >
 @app.route('/logout_admin')
 def logout_admin():
     """logout"""
+    flash('Log out!', 'success')
     return redirect(url_for('login_user'))
 
 #< employee list >
@@ -276,7 +278,7 @@ def delete(id):
     db.session.delete(data_employe)
     db.session.commit()
 
-    flash('Delete Data Success')
+    flash('Delete Data Success', 'success')
     return redirect(url_for('index'))
 
 #< home_admin >
@@ -312,19 +314,20 @@ def order():
         status = 0
         all_order = Order.query.filter_by(status=status).all()
         order_list = []
+        
         for order in all_order:
             data_user = user.query.get(order.id_user)
             data_menu = Menu.query.get(order.id_menu)
             data_order = Order.query.get(order.id)
-            response = {
-                'user_name': data_user.username,
-                'user_email': data_user.email,
-                'menu_name': data_menu.name,
-                'menu_price': data_menu.price,
-                'id': data_order.id,
-            }
-            order_list.append(response)
-        print(order_list)
+            if data_user:
+                response = {
+                    'user_name': data_user.username,
+                    'user_email': data_user.email,
+                    'menu_name': data_menu.name,
+                    'menu_price': data_menu.price,
+                    'id': data_order.id
+                }
+                order_list.append(response)
         return render_template('order.html', order_list=order_list)
     return render_template('order.html')
 
@@ -335,7 +338,7 @@ def cancel(id):
     cancel_order = Order.query.get(id)
     db.session.delete(cancel_order)
     db.session.commit()
-
+    flash('ยกเลิกออเดอร์เรียบร้อย', 'success')
     return redirect(url_for('order'))
 
 #< change status => 1 continue >
@@ -390,7 +393,7 @@ def finish2(id):
             'menu_price': data_menu.price,
             'id': data_order.id
         }]
-
+        flash('ออเดอร์เสร็จสิ้นแล้ว', 'success')
         return render_template('order_success.html', order_list=response)
     return render_template('order_success.html')
 
