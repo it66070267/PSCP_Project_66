@@ -90,7 +90,7 @@ def signup():
         db.session.add(add_data)
         db.session.commit()
     flash('signup success!')
-    return render_template('login.html')
+    return render_template('signup.html')
 
 #< login >
 @app.route('/', methods=['GET', 'POST'])
