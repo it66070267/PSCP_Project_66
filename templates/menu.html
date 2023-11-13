@@ -39,15 +39,15 @@
                             </fieldset>
                 </div>
                 <div>
-                    <!-- <a href="{{ url_for('receive') }}" class="btn btn-success btn-sm" style="margin-top: 10px;" onclick="return confirm('คุณแน่ใจว่าจะยืนยันคำสั่งจอง')">ยืนยันคำสั่งจอง</a> -->
-                    <button type="submit" class="btn btn-success btn-lg mt-3" id="buttonn">ยืนยันคำสั่งจอง</button>
+                    <button type="submit" class="btn btn-success btn-lg mt-3" id="buttonn" onclick="show_alert()">ยืนยันคำสั่งจอง</button>
                 </div>
             </div>
         </form>
 
         <script>
             function show_alert() {
-                alert("")
+                alert("ยืนยันคำสั่งจองสำเร็จ");
+                // window.location.href = "page.html", username=user_data.username;
             }
         </script>
     </div>

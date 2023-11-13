@@ -63,6 +63,15 @@ class Order(db.Model):
         self.id_menu = id_menu
         self.status = status
 
+class all_menu(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(255), nullable=False)
+    price = db.Column(db.Integer(), nullable=False)
+
+    def __init__(self, name, price):
+        self.name = name
+        self.price = price
+
 #<----------------- user ------------------>
 #< sign up >
 @app.route('/signup', methods=['GET', 'POST'])
@@ -96,9 +105,10 @@ def login_user():
 
         if user_data and user_data.password == password:
             session['user_id'] = user_data.id
+            session['user_name'] = user_data.username
             
-            return render_template('page.html', username=user_data.username)
-            # return redirect(url_for('page'))
+            # return render_template('page.html', username=user_data.username)
+            return redirect(url_for('page'))
         if admin_data and admin_data.password == password:
             return redirect(url_for('order'))
         else:
@@ -109,6 +119,7 @@ def login_user():
 
 @app.route('/changepass', methods=['GET', 'POST'])
 def change_pass():
+    """change password"""
     if request.method == 'POST':
         username = request.form['username']
         email = request.form['email']
@@ -141,13 +152,15 @@ def home():
 
 @app.route('/page')
 def page():
-
-    return render_template('page.html')
+    """page"""
+    data_username = session.get('user_name')
+    return render_template('page.html', username=data_username)
 
 @app.route('/random_text', methods=['GET'])
 def random_text():
-    random_data = Menu.query.order_by(func.rand()).first()
-    return jsonify({'name': random_data.name})
+    """random menu"""
+    random_data = all_menu.query.order_by(func.rand()).first()
+    return jsonify({'name': random_data.name, 'price': random_data.price})
 
 #< logout >
 @app.route('/logout')
@@ -287,7 +300,7 @@ def receive():
             db.session.add(add_data)
             db.session.commit()
 
-            return redirect(url_for('list_order'))
+            return redirect(url_for('page'))
     return render_template('order.html')
 
 #< all order >

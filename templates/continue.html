@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'page_admin.html' %}
 
 {% block title %} Continue {% endblock %}
 
@@ -7,16 +7,14 @@
 {% block body %}
 
 <!-- status=1 -->
-<div>
+<div style="margin-top: 20px;">
     {% for order in order_list %}
-        <ul>
-            <li>{{ order.user_name }}</li>
-            <li>{{ order.user_email }}</li>
-            <li>{{ order.menu_name }}</li>
-            <li>{{ order.menu_price }}</li>
-        </ul>
+            <h4><strong style="color: #FF7A00;">Username : </strong>{{ order.user_name }}</h4>
+            <h4><strong style="color: #FF7A00;">Email : </strong>{{ order.user_email }}</h4>
+            <h4><strong style="color: #FF7A00;">Order : </strong>{{ order.menu_name }}</h4>
+            <h4><strong style="color: #FF7A00;">Price : </strong>{{ order.menu_price }}</h4>
     
-        <a href="{{ url_for('finish', id=order.id) }}" class="btn btn-success">ดำเนินการเสร็จสิ้น</a>
+        <a href="{{ url_for('finish', id=order.id) }}" class="btn btn-success" style="margin-top: 10px;">ดำเนินการเสร็จสิ้น</a>
     {% endfor %}
 </div>
 
