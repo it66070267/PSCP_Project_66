@@ -16,37 +16,7 @@
     </div>
     </div>
     </div>
-<div class="mt-2">
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-    {% for message in messages %}
-        {% if {{ success }} %}
-        <!-- <div class="alert alert-danger" role="alert">
-            <strong>Failed!</strong> {{ message }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div> 
-    --><div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-      Success 
-        </div>
-        </div>
-    </div>
-        {% else %}
-        <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-          Failed!
-            </div>
-            </div>
-        </div>
-        {% endif %}
-    {% endfor %}
-{% endif%}
-{% endwith %}
-</div>
+    
 <div class="card-body mt-2 pd-2">
     <form action="{{ url_for('change_pass') }}" method="POST">
         <div class="form-group pt-5">

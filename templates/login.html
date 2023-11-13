@@ -20,11 +20,12 @@
 </div>
 </div>
 </div>
+<div class="mt-2">
 {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for message in messages %}
-                <div class="alert alert-danger" role="alert">
-                    <strong>Failed!</strong> {{ message }}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Success!</strong> {{ message }}
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -32,9 +33,10 @@
             {% endfor %}
         {% endif%}
     {% endwith %}
-    <div class="card-body mt-2 pd-2">
+</div>
+    <div class="card-body pd-2">
         <form action="{{ url_for('login_user') }}" method="POST">
-            <div class="form-group pt-5">
+            <div class="form-group pt-2">
                 <div class="input-group">
                      <div class="input-group-prepend">
                         <div class="input-group-text">

@@ -89,8 +89,8 @@ def signup():
         add_data = user(username=username, email=email, password=password)
         db.session.add(add_data)
         db.session.commit()
-
-    return render_template('signup.html')
+    flash('signup success!')
+    return render_template('login.html')
 
 #< login >
 @app.route('/', methods=['GET', 'POST'])
@@ -134,7 +134,7 @@ def change_pass():
                 user_data.password = password
                 db.session.commit()
                 success = True
-                flash('Your password has been successfully changed.', 'success')
+                flash('Your password has been successfully changed.')
                 return redirect(url_for('login_user'))
             else:
                 flash('Password and confirmation do not match. Please try again.', 'danger')
